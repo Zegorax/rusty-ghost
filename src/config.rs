@@ -23,4 +23,8 @@ pub struct GhostConfig {
     /// Certificate authority certificate path
     #[clap(long)]
     pub ca_cert: PathBuf,
+
+    /// Do not check if the query path ends with /announce
+    #[clap(long)]
+    pub no_announce_path_check: bool,
 }

@@ -17,6 +17,8 @@ pub struct GhostModifier {
     zero_dl: bool,
     #[builder(default = false)]
     intact_left: bool,
+    #[builder(default = false)]
+    no_announce_path_check: bool,
 }
 
 impl GhostModifier {
@@ -24,6 +26,7 @@ impl GhostModifier {
         Self {
             zero_dl: config.zero_dl,
             intact_left: config.intact_left,
+            no_announce_path_check: config.no_announce_path_check,
         }
     }
 
@@ -37,7 +40,7 @@ impl GhostModifier {
           return Ok(GhostAction::Continue);
         };
 
-        if !path.ends_with("announce") {
+        if !path.ends_with("announce") && !self.no_announce_path_check {
             log::info!("Request is not an announce, skipping...");
             return Ok(GhostAction::Continue);
         }
